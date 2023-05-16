@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Expression Basic Object</h1>
+<p th:text="${boardList[0].title}"></p>
+<p>inline방식 표현: [[${boardList[0].title}]]</p>
+<p>inline방식 표현: [[${#vars.boardList[0].title}]]</p>
+<p>[[${#response.characterEncoding}]]</p>
+<p>[[${@environment.getProperty('app.title')}]]</p>
+<p>session: [[${session.userName}]]</p>
+<p>session: [[${session["userName"]}]]</p>
+<p>param: [[${param.bno}]]</p>주소에 bno을 주기
+<p>param: [[${#request.getParameter("bno")}]]</p>
+<p>List 객체의 사이즈 :[[${boardList.size()}]]</p>
+<p>타임리프가 제공하는 객체 사용--사이즈 :[[${#lists.size(boardList)}]]</p>
+<hr>
+<p th:text="${now}"></p>
+<p th:text="${#dates.format(now,'yyyy-MM-dd hh:mm:ss')}"></p>
+<p th:with="today=${#dates.format(now,'yyyy-MM-dd hh:mm:ss')}">
+[[${today}]]
+</p>
+<hr>
+<p th:text="${price}">1</p>
+<p th:text="${#numbers.formatInteger(price, 3,'COMMA')}">2</p>
+<p th:text="${#numbers.formatDecimal(price, 5,10,'POINT')}">정수 5자리, 소수 아래 10자리</p>
+<hr>
+<p th:text="${title}">1</p>
+<p th:utext="${#strings.replace(title, 's', '<b>S</b>')}">1</p>
+<p th:utext="${#strings.replace(title, 's', '<i>S</i>')}">1</p>
+<p th:text="${#strings.toUpperCase(title)}"></p>
+<ul>
+<li th:each="myword:${#strings.listSplit(title,'')}">
+</li>
+</ul>
+<hr>
+<h2 th:text="${options}"></h2>
+<ul>
+	<li th:each="aa:${options}" th:text="${aa}">
+	</li>
+</ul>
+<hr>
+<h2>링크 사용하기</h2>
+<a th:href="@{http://localhost:8888/app/freeboard/selectAll}">selectAll</a><br>
+<a th:href="@{/freeboard/selectAll}">selectAll 절대경로 사용하기</a><br>
+<a th:href="@{~/app/freeboard/selectAll}">selectAll 절대경로 사용하기(contextpath가 다른경우)</a><br>
+<a th:href="@{selectAll}">selectAll 상대경로 사용하기</a><br>
+<a th:href="@{detail(bno=50)}">parameter가 있는 경우 50번 상세보기</a><br>
+
+</body>
+</html>
+</hr>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>ThyemLeaf사용하기!</h1>
+<!-- getAttribute와 같음 th:text는 중간 텍스트${}를 만들어줌. -->
+<h2 th:text=${company}></h2>
+<p th:text="${greeting}">이 부분은 출력안됨~</p>
+</body>
+</html>
