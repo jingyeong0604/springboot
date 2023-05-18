@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{/layout/layout1}">
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="panel panel-default" layout:fragment="content1">
+		<h1>WebBoard List~~~</h1>
+		<a th:href="@{register.do}">신규등록</a>
+		<div class="pull-left">
+  <select id="searchType">
+     <option>전체</option>
+     <option value="title" th:selected="${pageVO.type=='title'}">제목</option>
+     <option value="content" th:selected="${pageVO.type=='content'}">내용</option>
+     <option value="writer" th:selected="${pageVO.type=='writer'}">작성자</option>
+  </select>
+  <input type="text" id="searchKeyword" th:value="${pageVO.keyword}">
+  <button id="searchBtn">조건검색</button>
+   <img alt="이미지" th:src="@{/images/cat.jpg}" width="50px" height="50px">
+</div>
+
+<p>[[${msg}]]</p>
+		
+		<!– list출력 -->
+		<table class="table table-striped table-bordered"
+			th:with="blist2=${blist.result}"><!-- blist2 지역변수 만들기 -->
+			<tr class="success">
+				<th>bno</th>
+				<th>title</th>
+				<th>content</th>
+				<th>writer</th>
+				<th>regdate</th>
+			</tr>
+
+			<tbody><!--  badge출력을 위한 모양 설정 board.replies.size()webBoard에서 EAGER설정해줘서 댓글을 가져올 수 있음.-->
+				<tr th:each="board:${blist2.content}" class="odd gradeX">
+					<td>[[${board.bno}]]</td>
+					<td><a class="boardLink" th:href="${board.bno}">[[${board.title}]]</a> 
+					<!-- 댓글수추가 -->
+					<span class="badge">[[${board.replies.size()}]]</span></td>
+					<td>[[${board.content}]]</td>
+					<td>[[${board.writer}]]</td>
+					<td class="center">
+						[[${#dates.format(board.regdate,'yyyy-MM-dd')}]]</td>
+				</tr>
+			</tbody>
+			</table>
+<!-- paging -->
+  <nav>
+   <div>
+     <ul class="pagination">
+       <li class="page-item" th:if="${blist.prevPage}">
+         <a th:href="${blist.prevPage.pageNumber}+1">PREV [[${blist.prevPage.pageNumber}+1]]</a>
+       </li>
+        <li class="page-item" th:classappend="${p.pageNumber==blist.currentPageNum-1}?active:''" 
+                             th:each="p:${blist.pageList}">
+         <a th:href="${p.pageNumber}+1">[[${p.pageNumber}+1]]</a>
+       </li>  
+       <li class="page-item" th:if="${blist.nextPage}">
+         <a th:href="${blist.nextPage.pageNumber}+1">NEXT [[${blist.nextPage.pageNumber}+1]]</a>
+       </li>   
+     </ul>
+
+   </nav>
+   <form id="f1" th:action="@{list.do}" method="get">
+	    <input type="text" name="page" th:value="${blist.currentPageNum}">
+	    <input type="text" name="size" th:value="${blist.currentPage.pageSize}">
+	    <input type="text" name="type" th:value="${pageVO.type}">
+	    <input type="text" name="keyword" th:value="${pageVO.keyword}">
+	</form>
+</div>
+<!-- javascript --> 
+<th:block layout:fragment="script1">
+	<script th:inline="javascript">
+		$(function(){
+		//등록후 추가됨
+		var msg = [[${msg}]]; 
+		if(msg=="success"){
+			alert("정상적으로 등록되었습니다");
+		}
+		
+		var formObj = $("#f1"); /* 아이디가 f1인 것을 얻음 */
+		$(".pagination a").click(function(e){/*클래스가 pagination 자식인 a를 눌렀을때*/
+			e.preventDefault();//a의 기본 동작은 href로 이동 ...막기!!
+			formObj.find("[name='page']").val($(this).attr('href'));
+			formObj.attr("action", "list.do");
+			formObj.submit();
+			});
+		
+		/* <!– javascript --> */
+		$("#searchBtn").click(function(){
+		var typeStr = $("#searchType").find(":selected").val();
+			var keywordStr = $("#searchKeyword").val();
+			formObj.find("[name='type']").val(typeStr);
+			formObj.find("[name='keyword']").val(keywordStr);
+			formObj.find("[name='page']").val(1);
+			formObj.attr("action", "list.do"); 
+			formObj.submit();
+		});
+		$(".boardLink").click(function(e){
+			e.preventDefault();
+			var boardNo = $(this).attr("href");
+			
+			formObj.attr("action", "view.do");  
+			var bnoObj = formObj.find("[name='bno']");
+			console.log(bnoObj);
+			if($(bnoObj).val()!=undefined){
+				$(bnoObj).val(boardNo);
+			}else{
+				formObj.append("<input type='text' name='bno' value='"+boardNo+"'>");
+			}
+			alert(boardNo);
+			formObj.submit();
+			});
+
+		});
+		
+		
+		</script> 
+		</th:block>
+		
+</body>
+</html>  
+
+
+
+<!-- result->페이지 content->내용 -->

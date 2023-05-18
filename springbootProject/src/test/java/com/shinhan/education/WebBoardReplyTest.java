@@ -38,9 +38,9 @@ public class WebBoardReplyTest {
 	}
 	
 	//5개의 board에 댓글 10개 넣기
-	//@Test
+	@Test
 	void test2() {
-		Long[] arr= {141L, 142L, 143L, 144L};
+		Long[] arr= {423L, 424L, 425L, 426L};
 		Arrays.stream(arr).forEach(bno->{
 			boardRepo.findById(bno).ifPresent(board->{
 				IntStream.rangeClosed(20, 30).forEach(indx->{
@@ -73,7 +73,7 @@ public class WebBoardReplyTest {
 	
 	
 	//특정 board 댓글(Board1에서 시작)
-	@Test
+	//@Test
 	void test5() {
 		boardRepo.findById(141L).ifPresent(board->{
 			List<WebReply> list=board.getReplies();
@@ -82,10 +82,10 @@ public class WebBoardReplyTest {
 	}
 	
 	//특정 board댓글(Reply->N에서 시작)
-	@Test
+	//@Test
 	void test6() {
 		WebBoard board = boardRepo.findById(141L).get();
-		List<WebReply> list = replyRepo.findByBoard(board);
+		List<WebReply> list = replyRepo.findByBoardOrderByRnoDesc(board);
 		list.forEach(reply->{
 			System.out.println(reply);
 		});

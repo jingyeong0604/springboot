@@ -16,6 +16,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.shinhan.education.repository.BoardRepository;
 import com.shinhan.education.repository.PDSBoardRepository;
 import com.shinhan.education.vo.BoardVO;
+
 import com.shinhan.education.vo.CarVO;
 import com.shinhan.education.vo.QBoardVO;
 
@@ -50,7 +51,7 @@ public class SampleRestController {
 		Long bno=1L;//and bno>150
 		
 		BooleanBuilder builder=new BooleanBuilder();
-		QBoardVO board = QBoardVO.boardVO;
+		QBoardVO board=QBoardVO.boardVO;
 		builder.and(board.title.like("%"+title+"%"));
 		builder.and(board.bno.gt(bno));//bno>150
 		builder.and(board.writer.eq("작성자9"));//작성자 9번에 대한거승ㄹ 출력

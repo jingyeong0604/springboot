@@ -11,7 +11,7 @@ href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
  p { color:red;}
 </style>
 <script>
- alert("부모에서 작성된 JavaScript");
+ //alert("부모에서 작성된 JavaScript");
 </script>
 </head>
 <body>
@@ -20,7 +20,7 @@ href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 <!-- fragment 삽입하기 -->
 <header th:replace="fragments/header :: header3">header.html에서 header1부분이 들어옴.</header>
 <!-- 하위 HTML에서 content 재정의할 예정 -->
-<div class="panel panel-default" layout:fragment="content1">!!!!!!</div>
+<div class="panel panel-default" layout:fragment="content1"></div>
 <footer th:replace="fragments/footer :: footer1"></footer>
 <!-- 하위 HTML에서 javascript 재정의할 예정  th:block 은 없어지는 태그이다 -->
 <th:block layout:fragment="script1">

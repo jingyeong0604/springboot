@@ -17,7 +17,7 @@ import org.springframework.data.domain.Sort;
 import com.querydsl.core.BooleanBuilder;
 import com.shinhan.education.repository.BoardRepository;
 import com.shinhan.education.vo.BoardVO;
-import com.shinhan.education.vo.QBoardVO;
+
 
 import lombok.extern.java.Log;
 
@@ -37,11 +37,12 @@ class BoardTest {
 		Long bno=80L;//and bno>150
 		
 		BooleanBuilder builder=new BooleanBuilder();
-		QBoardVO board = QBoardVO.boardVO;
-		builder.and(board.title.like("%"+title+"%"));
-		builder.and(board.bno.gt(bno));//bno>150
-		builder.and(board.writer.eq("작성자9"));//작성자 9번에 대한거승ㄹ 출력
-		//System.out.println(builder);
+		/*
+		 * //QBoardVO board = QBoardVO.boardVO;
+		 * builder.and(board.title.like("%"+title+"%"));
+		 * builder.and(board.bno.gt(bno));//bno>150
+		 * builder.and(board.writer.eq("작성자9"));//작성자 9번에 대한거승ㄹ 출력
+		 */		//System.out.println(builder);
 		//findAll()=>CrudRepository에서 제공됨  
 		//findAll(predicate)=>QuerydslPredicateExecutor에서 제공됨
 		//predicate란???? 맞았는지 틀렸는지 

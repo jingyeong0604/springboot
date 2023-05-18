@@ -42,6 +42,7 @@ public class WebBoard {
 	@Column(nullable=false)//db칼럼이 not null(필수 칼럼이다)
 	String title;
 	String content;
+	String writer;
 	@CreationTimestamp
 	Timestamp regdate;
 	@UpdateTimestamp

@@ -26,7 +26,7 @@ public interface WebBoardRepository extends PagingAndSortingRepository<WebBoard,
 			builder.and(board.title.like("%" + keyword + "%")); break;
 		case "content": //and content like?
 			builder.and(board.content.like("%" + keyword + "%")); break;
-		//case "w": builder.and(board.writer.like("%" + keyword + "%")); break;
+		case "writer": builder.and(board.writer.like("%" + keyword + "%")); break;
 		default: break;
 		}
 		return builder;
