@@ -32,5 +32,6 @@ public class MemberDTO {
 	
 	@Enumerated(EnumType.STRING)//enum으로 선언된 문자가 저장됐으면 좋겠다. 순서 상관없이!
 	MemberRole mrole;
-	
+	//member를 security로 바꿔야 로그인할 수 있음!
+	//securityUser.java가 필요함
 }

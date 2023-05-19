@@ -22,6 +22,8 @@ import com.shinhan.education.vo3.PageMarker;
 import com.shinhan.education.vo3.PageVO;
 import com.shinhan.education.vo3.WebBoard;
 
+import io.swagger.annotations.ApiOperation;
+
 @Controller
 @RequestMapping("/webboard")//공통주소 추가
 public class WebBoardController {
@@ -31,7 +33,7 @@ public class WebBoardController {
 	WebReplyRepository replyRepo;
 	
 	
-
+	@ApiOperation(value="개시판 등록화면", notes="게시판 등록화면!")
 	//등록
 	@GetMapping("/register.do")
 	public void registerGet() {
